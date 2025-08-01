@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-import { postPhoneService } from "../services/phone-service";
+import { createPhone } from "../services/phone-service";
 
 
 export async function postContact(req: Request, res: Response) {
-    await postPhoneService(req);
+    await createPhone(req);
     return res.sendStatus(201);
 }
