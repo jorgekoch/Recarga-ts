@@ -1,11 +1,25 @@
-import { getPhoneByNumber, postContact } from "../repositories/phone-repository";
+import { countPhonesByCpf, getPhoneByNumber, postContact } from "../repositories/phone-repository";
 import { ContactData } from "../protocols";
-import { samenumberError } from "errors/errors";
+import { phoneLimitError, sameNumberError } from "../errors/error";
 
 export async function createPhone(phoneData: ContactData) {
-    const conflito = await getPhoneByNumber(phoneData.phone);
-    if (conflito.rowCount !== 0) throw samenumberError("número");
+    const phones = Array.isArray(phoneData.phone) ? phoneData.phone : [phoneData.phone];
 
-    const novoTelefone = await postContact(phoneData);
-    return novoTelefone;
+    // Verifica quantos telefones já existem para o CPF no banco
+    const totalPhones = Number((await countPhonesByCpf(phoneData.cpf))?.rows?.[0]?.count || 0);
+    if (totalPhones + phones.length > 3) throw phoneLimitError("número");
+
+    // Verifica se algum número já existe no banco
+    for (const phoneNumber of phones) {
+        const conflito = await getPhoneByNumber(phoneNumber);
+        if (conflito && conflito.rowCount !== 0) throw sameNumberError("número");
+    }
+
+    // Cadastra cada telefone individualmente
+    let results = [];
+    for (const phoneNumber of phones) {
+        const novoTelefone = await postContact({ ...phoneData, phone: [phoneNumber] });
+        results.push(novoTelefone);
+    }
+    return results;
 }
