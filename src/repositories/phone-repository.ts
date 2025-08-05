@@ -36,3 +36,10 @@ export async function countPhonesByCpf(cpf: string) {
     const values = [cpf];
     return db.query(query, values);
 }
+
+export async function getPhoneByDocument(document: string) {
+    const query = 'SELECT * FROM telefones WHERE cpf = $1';
+    const values = [document];
+    const result = await db.query(query, values);
+    return result;
+}

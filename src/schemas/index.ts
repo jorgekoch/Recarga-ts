@@ -1,5 +1,5 @@
 import joi from 'joi';
-import { ContactData } from 'protocols';
+import { ContactData, RechargeData } from 'protocols';
 
 const phoneSchema = joi.object<ContactData>({
     name: joi.string().required(),
@@ -9,4 +9,9 @@ const phoneSchema = joi.object<ContactData>({
     description: joi.string().required()
     }); 
 
-export default phoneSchema;
+const rechargeSchema = joi.object<RechargeData>({
+    phoneId: joi.string().required(),
+    amount: joi.number().greater(0).required()
+});
+
+export { phoneSchema, rechargeSchema };

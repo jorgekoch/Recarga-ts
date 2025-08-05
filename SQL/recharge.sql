@@ -7,3 +7,8 @@ CREATE TABLE telefones (
     description TEXT NOT NULL
 );
 
+CREATE TABLE recargas (
+    id SERIAL PRIMARY KEY,
+    phone_id INTEGER NOT NULL REFERENCES telefones(id),
+    amount DECIMAL(10, 2) NOT NULL
+);

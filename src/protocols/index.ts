@@ -6,3 +6,7 @@ export type ContactData = {
     description: string;
 };
 
+export type RechargeData = {
+    phoneId: string;
+    amount: number;
+};
