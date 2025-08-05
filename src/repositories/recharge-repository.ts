@@ -16,7 +16,7 @@ export async function postRechargeRepository(rechargeData: RechargeData) {
 
 export async function getPhoneById(phoneId: string) {
     const query = `
-        SELECT * FROM phones WHERE id = $1;
+        SELECT * FROM telefones WHERE id = $1;
     `;
     
     const result = await db.query(query, [phoneId]);

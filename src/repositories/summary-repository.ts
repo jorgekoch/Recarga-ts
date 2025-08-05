@@ -1,0 +1,22 @@
+import db from '../database';
+
+export async function getSummaryRepository(document: string) {
+    const query = `
+        SELECT
+            t.name,
+            t.cpf,
+            t.phone,
+            t.carrier,
+            t.description,
+            r.amount
+        FROM
+            telefones AS t
+        LEFT JOIN
+            recargas AS r ON t.id = r.phone_id
+        WHERE
+            t.cpf = $1;
+            `;
+
+    const result = await db.query(query, [document]);
+    return result.rows;
+}
