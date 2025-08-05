@@ -22,3 +22,13 @@ export async function getPhoneById(phoneId: string) {
     const result = await db.query(query, [phoneId]);
     return result.rows[0];
 }
+
+export async function getRechargeRepository(number: string) {
+    const query = `
+        SELECT * FROM recargas
+        WHERE phone_id = (SELECT id FROM telefones WHERE phone = $1);
+    `;
+
+    const result = await db.query(query, [number]);
+    return result.rows;
+}

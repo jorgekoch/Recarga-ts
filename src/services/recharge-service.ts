@@ -1,6 +1,6 @@
-import { notFoundError, rechargeError } from "errors/error";
-import { RechargeData } from "protocols";
-import { getPhoneById, postRechargeRepository } from "repositories/recharge-repository";
+import { notFoundError, rechargeError } from "../errors/error";
+import { RechargeData } from "../protocols";
+import { getPhoneById, getRechargeRepository, postRechargeRepository } from "../repositories/recharge-repository";
 
 export async function postRechargeService(rechargeData: RechargeData) {
     const phoneExist = await getPhoneById(rechargeData.phoneId);
@@ -17,3 +17,12 @@ export async function postRechargeService(rechargeData: RechargeData) {
     return recharge;
 }
 
+export async function getRechargeService(number: string) {
+    const recharges = await getRechargeRepository(number);
+    if (!recharges) {
+        throw notFoundError("recarga");
+    }
+
+    return recharges;
+
+}

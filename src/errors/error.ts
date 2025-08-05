@@ -22,6 +22,6 @@ export function notFoundError(entity: string) {
 export function rechargeError() {
     return {
         type: "rechargeError",
-        message: `O valor da recarga deve ser maior que 10 e menor que 1000 reais`,
+        message: `O valor da recarga deve ser entre 10 e 1000 reais`,
     }
 }

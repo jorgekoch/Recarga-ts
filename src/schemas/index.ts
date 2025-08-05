@@ -4,7 +4,7 @@ import { ContactData, RechargeData } from 'protocols';
 const phoneSchema = joi.object<ContactData>({
     name: joi.string().required(),
     cpf: joi.string().pattern(/^\d{11}$/).required(), 
-    phone: joi.array().items().min(1).max(3).required(),
+    phone: joi.string().required(),
     carrier: joi.string().required(),
     description: joi.string().required()
     }); 

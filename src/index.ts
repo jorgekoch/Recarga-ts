@@ -1,7 +1,7 @@
 import express, { json, Request, Response } from 'express';
 import phoneRouter from './routes/phone-router';
 import errorHandler from './middlewares/errorHandler-middleware';
-import rechargeRouter from 'routes/recharge-router';
+import rechargeRouter from './routes/recharge-router';
 
 const app = express();
 app.use(json());

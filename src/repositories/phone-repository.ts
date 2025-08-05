@@ -1,7 +1,7 @@
 import db from '../database';
 import { ContactData } from 'protocols';
 
-export async function postContact(contactData: ContactData) {
+export async function postPhoneRepository(contactData: ContactData) {
     const query = `
         INSERT INTO telefones (name, cpf, phone, carrier, description)
         VALUES ($1, $2, $3, $4, $5)
