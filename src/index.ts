@@ -7,8 +7,8 @@ import summaryRouter from './routes/summary-router';
 const app = express();
 app.use(json());
 
-app.get("/health", (req: Request, res: Response) => {
-  res.status(200).send("OK");
+app.get("health", (req: Request, res: Response) => {
+  res.sendStatus(200);
 });
 
 app.use(phoneRouter);

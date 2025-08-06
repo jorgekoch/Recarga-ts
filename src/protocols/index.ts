@@ -10,3 +10,8 @@ export type RechargeData = {
     phoneId: string;
     amount: number;
 };
+
+
+export interface CustomError extends Error {
+    type: string;
+}
