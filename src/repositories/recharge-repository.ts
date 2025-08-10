@@ -1,34 +1,27 @@
 import db from '../database';
-import { RechargeData } from 'protocols';
+import { GetPhoneById, Recharge, RechargeData } from 'protocols';
 
 export async function postRechargeRepository(rechargeData: RechargeData) {
-    const query = `
+    const result = await db.query<Recharge>(`
         INSERT INTO recargas (phone_id, amount)
         VALUES ($1, $2)
         RETURNING *;
-    `;
-
-    const values = [rechargeData.phoneId, rechargeData.amount];
-    const result = await db.query(query, values);
+    `, [rechargeData.phoneId, rechargeData.amount]);
     
     return result.rows[0];
 }
 
 export async function getPhoneById(phoneId: string) {
-    const query = `
+    const result = await db.query<GetPhoneById>(`
         SELECT * FROM telefones WHERE id = $1;
-    `;
-    
-    const result = await db.query(query, [phoneId]);
+    `, [phoneId]);
     return result.rows[0];
 }
 
 export async function getRechargeRepository(number: string) {
-    const query = `
+    const result = await db.query<GetPhoneById>(`
         SELECT * FROM recargas
         WHERE phone_id = (SELECT id FROM telefones WHERE phone = $1);
-    `;
-
-    const result = await db.query(query, [number]);
+    `, [number]);
     return result.rows;
 }

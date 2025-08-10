@@ -1,7 +1,8 @@
+import { SummaryRepository } from 'protocols';
 import db from '../database';
 
 export async function getSummaryRepository(document: string) {
-    const query = `
+    const result = await db.query<SummaryRepository>(`
         SELECT
             t.name,
             t.cpf,
@@ -15,8 +16,6 @@ export async function getSummaryRepository(document: string) {
             recargas AS r ON t.id = r.phone_id
         WHERE
             t.cpf = $1;
-            `;
-
-    const result = await db.query(query, [document]);
+            `, [document]);
     return result.rows;
 }
