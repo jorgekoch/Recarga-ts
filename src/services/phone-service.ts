@@ -18,7 +18,7 @@ export async function postPhoneService(phoneData: ContactData) {
     return novoTelefone;
 }
 
-export async function getContactByDocument(document: string) {
+export async function getContactByDocument(document: string): Promise<string[]> {
     const contact = await getPhoneByDocument(document);
 
     if (!contact || contact.rowCount === 0) {

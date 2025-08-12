@@ -17,12 +17,12 @@ export async function postRechargeService(rechargeData: RechargeData) {
     return recharge;
 }
 
-export async function getRechargeService(number: string) {
+export async function getRechargeService(number: string): Promise<string[]> {
     const recharges = await getRechargeRepository(number);
     if (!recharges) {
         throw notFoundError("recarga");
     }
+    const phoneNumbers: string[] = recharges.map(recharge => recharge.phone);
 
-    return recharges;
-
+    return phoneNumbers;
 }

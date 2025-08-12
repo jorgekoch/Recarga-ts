@@ -1,3 +1,4 @@
+import { QueryResult } from 'pg';
 import db from '../database';
 import { ContactData, CountPhonesByCpf, GetPhone, GetPhoneByDocument, PhoneData } from 'protocols';
 
@@ -33,7 +34,7 @@ export async function CountPhonesByCpf(cpf: string) {
     return result;
 }
 
-export async function getPhoneByDocument(document: string) {
+export async function getPhoneByDocument(document: string): Promise<QueryResult<GetPhoneByDocument>> {
     const result = await db.query<GetPhoneByDocument>('SELECT * FROM telefones WHERE cpf = $1', [document]);
     return result;
 }

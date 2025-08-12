@@ -59,5 +59,18 @@ export type SummaryRepository = {
     phone: string;
     carrier: string;
     description: string;
-    amount: number | null; // Amount can be null if no recharge exists
+    amount: number | null; 
 };
+
+export type ContactBody = {
+    name: string;
+    document: string;
+    phone: string;
+    cpf: string;       
+    carrier: string;   
+    description: string; 
+};
+
+export type GetContactResponse = string[] | { message: string };
+
+export type GetRechargeResponse = string[] | { message: string };
