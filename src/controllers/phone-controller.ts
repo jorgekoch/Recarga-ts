@@ -9,7 +9,7 @@ export async function postPhone(req: Request, res: Response) {
 
 }
 
-export async function getContact(req: Request, res: Response ) {
+export async function getContact(req: Request, res: Response<GetContactResponse>) {
     const { document } = req.params;
     const contact = await getContactByDocument(document);
 

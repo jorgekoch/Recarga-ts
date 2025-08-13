@@ -1,13 +1,13 @@
 import { Request, Response } from "express";
 import { getRechargeService, postRechargeService } from "../services/recharge-service";
-import { RechargeData } from "protocols";
+import { GetRechargeResponse, RechargeData } from "protocols";
 
 export async function postRecharge(req: Request, res: Response) {
     const recharge = await postRechargeService(req.body as RechargeData);
     return res.status(201).send(recharge);
 }  
 
-export async function getRecharge(req: Request, res: Response) {
+export async function getRecharge(req: Request, res: Response<GetRechargeResponse>) {
     const { number } = req.params;
     const recharge = await getRechargeService(number);
     return res.status(200).send(recharge);
