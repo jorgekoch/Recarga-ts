@@ -1,19 +1,20 @@
+import { PhoneSummary, SummaryResponse } from "protocols";
 import { getSummaryRepository } from "../repositories/summary-repository";
 
-export async function getSummaryService(document: string) {
+export async function getSummaryService(document: string): Promise<SummaryResponse> {
     const result = await getSummaryRepository(document);
 
     if (result.length === 0) {
-        return { document, phones: [] };
+        return { document, phones: [], name: "" };
     }
 
-    const summary = {
+    const summary: SummaryResponse = {
         document: result[0].cpf, 
         name: result[0].name, 
         phones: []
     };
 
-    const phonesMap = {};
+    const phonesMap : Record<string, PhoneSummary> = {};
 
     result.forEach(row => {
         if (!phonesMap[row.phone]) {

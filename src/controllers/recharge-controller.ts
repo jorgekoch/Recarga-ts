@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import { getRechargeService, postRechargeService } from "../services/recharge-service";
-import { GetRechargeResponse, RechargeData } from "protocols";
+import { GetRechargeResponse, PostRechargeResponse, RechargeData } from "protocols";
 
-export async function postRecharge(req: Request, res: Response) {
+export async function postRecharge(req: Request, res: Response<PostRechargeResponse>) {
     const recharge = await postRechargeService(req.body as RechargeData);
     return res.status(201).send(recharge);
 }  

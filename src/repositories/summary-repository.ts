@@ -1,7 +1,7 @@
 import { SummaryRepository } from 'protocols';
 import db from '../database';
 
-export async function getSummaryRepository(document: string) {
+export async function getSummaryRepository(document: string): Promise<SummaryRepository[]> {
     const result = await db.query<SummaryRepository>(`
         SELECT
             t.name,

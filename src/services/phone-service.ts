@@ -1,10 +1,11 @@
 import { CountPhonesByCpf, getPhoneByDocument, getPhoneByNumber, postPhoneRepository } from "../repositories/phone-repository";
-import { ContactData } from "../protocols";
+import { ContactData, PhoneData } from "../protocols";
 import { notFoundError, phoneLimitError, sameNumberError } from "../errors/error";
 
-export async function postPhoneService(phoneData: ContactData) {
-    const currentPhoneCount = Number((await CountPhonesByCpf(phoneData.cpf))?.rows?.[0]?.count || 0);
-    if (currentPhoneCount >= 3) { 
+export async function postPhoneService(phoneData: ContactData): Promise<PhoneData> {
+    const result = await CountPhonesByCpf(phoneData.cpf);
+    const count = Number(result.rows[0].count);
+    if (count >= 3) { 
         throw phoneLimitError("número");
     }
 

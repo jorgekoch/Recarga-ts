@@ -7,7 +7,7 @@ export type ContactData = {
 };
 
 export type PhoneData = {
-    id: string;
+    id: number;
     name: string;
     cpf: string;
     phone: string;
@@ -21,15 +21,13 @@ export type GetPhone = {
 };
 
 export type GetPhoneByDocument = {
-    id: string;
+    id: number;
     cpf: string;
     phone: string;
 }
 
 export type CountPhonesByCpf = {
-    id: string;
-    cpf: string;
-    count: number;
+    count: string;
 }
 
 export type RechargeData = {
@@ -38,14 +36,16 @@ export type RechargeData = {
 };
 
 export type Recharge = {
-    id: string;
+    id: number;
     phoneId: string;
     amount: number;
 };
 
 export type GetPhoneById = {
-    id: string;
-    phone: string;  
+  id: number;
+  phone_id: number;
+  amount: number;
+  phone: string;
 };
 
 export interface CustomError extends Error {
@@ -53,13 +53,12 @@ export interface CustomError extends Error {
 }
 
 export type SummaryRepository = {
-    id: string;
     name: string;
     cpf: string;
     phone: string;
     carrier: string;
     description: string;
-    amount: number | null; 
+    amount: number | null;
 };
 
 export type ContactBody = {
@@ -74,3 +73,21 @@ export type ContactBody = {
 export type GetContactResponse = string[] | { message: string };
 
 export type GetRechargeResponse = string[] | { message: string };
+
+export type PostRechargeResponse = Recharge | { message: string };
+
+export type RechargeSummary = {
+  amount: number;
+};
+
+export type PhoneSummary = {
+  phone: string;
+  carrier: { name: string };
+  recharges: RechargeSummary[];
+};
+
+export type SummaryResponse = {
+  document: string;
+  name: string;
+  phones: PhoneSummary[];
+};

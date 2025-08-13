@@ -7,7 +7,7 @@ export async function postPhoneRepository(contactData: ContactData) {
         INSERT INTO telefones (name, cpf, phone, carrier, description)
         VALUES ($1, $2, $3, $4, $5)
         RETURNING *
-    ` [
+    `, [
         contactData.name,
         contactData.cpf,
         contactData.phone,
@@ -30,7 +30,7 @@ export async function getPhoneByNumber(number: string) {
 }
 
 export async function CountPhonesByCpf(cpf: string) {
-    const result = db.query<CountPhonesByCpf>('SELECT COUNT(*) FROM telefones WHERE cpf = $1', [cpf])
+    const result = await db.query<CountPhonesByCpf>('SELECT COUNT(*) FROM telefones WHERE cpf = $1', [cpf])
     return result;
 }
 

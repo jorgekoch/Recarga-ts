@@ -1,8 +1,8 @@
 import { notFoundError, rechargeError } from "../errors/error";
-import { RechargeData } from "../protocols";
+import { Recharge, RechargeData } from "../protocols";
 import { getPhoneById, getRechargeRepository, postRechargeRepository } from "../repositories/recharge-repository";
 
-export async function postRechargeService(rechargeData: RechargeData) {
+export async function postRechargeService(rechargeData: RechargeData): Promise<Recharge> {
     const phoneExist = await getPhoneById(rechargeData.phoneId);
     if (!phoneExist) {
         throw notFoundError("telefone");
